@@ -69,11 +69,10 @@ class LBRY_Admin
     /**
     * Returns the Options Page HTML for the plugin
     */
-    public function options_page_html() {
-      //$LBRY = LBRY();
+    public function options_page_html()
+    {
           // Set class properties to be referenced in callbacks
           $this->options = get_option( LBRY_SETTINGS );
-          //$this->options_channel = get_option( 'lbry_channel_settings' );
           $this->options_speech = get_option( LBRY_SPEECH_SETTINGS );
           require_once( LBRY_ABSPATH . 'templates/options-page.php' );
     }
@@ -106,14 +105,6 @@ class LBRY_Admin
             LBRY_ADMIN_PAGE,
             LBRY_SETTINGS_SECTION_GENERAL
         );
-// remove from commit:
-        add_settings_field(
-            'lbry_default_publish_setting',
-            'Always Publish to LBRY',
-            array( $this, 'lbry_always_pub_callback' ),
-            LBRY_ADMIN_PAGE,
-            LBRY_SETTINGS_SECTION_GENERAL
-        );
 
         add_settings_field(
             'lbry_default_publish_setting',
@@ -130,19 +121,19 @@ class LBRY_Admin
             LBRY_ADMIN_PAGE,
             LBRY_SETTINGS_SECTION_GENERAL
         );
-// remove from commit:
+
         add_settings_field(
             'lbry_default_publish_setting',
             'Always Publish to LBRY',
             array( $this, 'lbry_always_pub_callback' ),
             LBRY_ADMIN_PAGE,
             LBRY_SETTINGS_SECTION_GENERAL
-        );
+        );     
 
         add_settings_field(
-            'lbry_default_publish_setting',
-            'Always Publish to LBRY',
-            array( $this, 'lbry_always_pub_callback' ),
+            LBRY_LICENSE,
+            'LBRY Publishing License',
+            array( $this, 'license_callback' ),
             LBRY_ADMIN_PAGE,
             LBRY_SETTINGS_SECTION_GENERAL
         );
@@ -161,8 +152,8 @@ class LBRY_Admin
          * global variable to populate the cURL request to create_channel, not saving the inputs to 
          * our database.
          */
-        
-         
+
+
         /**
          * Speech Admin Page settings
          */
@@ -306,7 +297,7 @@ class LBRY_Admin
             $address
         );
     }
-// remove from commit:
+
     /**
      * Checkbox to default to always allow publish on LBRY
      */
@@ -324,7 +315,7 @@ class LBRY_Admin
 
         );
     }
-    
+
     /**
      * Prints select to choose a default to publish to channel
      */
@@ -335,7 +326,7 @@ class LBRY_Admin
 
         if ( $channel_list ) {
                 foreach ( $channel_list as $channel ) {
-                    $selected = $this->options['default_lbry_channel'] === $channel->name;
+                    $selected = $this->options['default_lbry_channel'] === $channel->claim_id;
 
                     $options .= '<option value="' . esc_attr( $channel->claim_id ) . '"';
                     if ( $selected ) {
@@ -444,7 +435,6 @@ class LBRY_Admin
         );
     }
 
-    
     /**
     * Handles new channel form submission
     */
