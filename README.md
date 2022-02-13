@@ -1,4 +1,4 @@
-# LBRYPress - Publish from Wordpress to LBRY automatically
+# LBRYPress - Publish from WordPress to LBRY automatically
 
 This plugin and readme are in early development. Thank you for your patience.
 
@@ -7,11 +7,11 @@ This plugin and readme are in early development. Thank you for your patience.
 ## How it works
 The LBRYPress plugin communicates with the LBRY network via a locally installed SDK. This allows you to create a channel and then mirror any published posts to it. If there are images or GIFs in your post, they will be uploaded to spee.ch (our blockchain-based image sharing service) automatically during the publishing process. If you update a post, it will also be updated on LBRY. 
 
-## Downloading and installing the Wordpress plugin
-First, install the LBRYPress plugin on Wordpress. 
+## Downloading and installing the WordPress plugin
+First, install the LBRYPress plugin on WordPress. 
 
 1) Download the [zip file for this repository](https://github.com/lbryio/lbrypress/archive/master.zip).
-1) In Wordpress, install the plugin from the zip file. It will show errors until the next steps are completed.
+1) In WordPress admin dashboard, upload and install the plugin from the zip file. Once activated it will show errors until the next steps are completed.
 
 ## Downloading and installing LBRY
 This will step you through downloading the LBRY SDK, installing it, and running as a system service. 
@@ -70,7 +70,7 @@ Experimental: republishing of images in blog to LBRY: If images or GIFs are used
 If you don't already have a channel, this process will create a channel in your local wallet where your blog posts will be published to. Any available channels will be listed at the top of the **Your Publishable Channels** section on the **Channels** tab.
 
 1) Enter the channel you wish to create and publish under in **New Channel Name**. 
-Your channel will be created with a single @ prefix and all spaces and underscores are changed to a dash. Uppercase characters are allowed. Most special characters are removed.
+Your channel will be created with a single @ prefix and all spaces and underscores are changed to a dash. Uppercase characters are allowed. Most other special characters are removed.
 1) Enter an **Amount of LBC to Bid** of 0.001 (current minimum, you can increase the amount or use supports later).
 By adding as a support you push your content higher in the search but also keep your LBC fluid and easily moved without needing to abandon your claim.
 1) Click **Add New Channel**.

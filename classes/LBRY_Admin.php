@@ -346,7 +346,6 @@ class LBRY_Admin
         <?php }
     }
     
-
     /**
     * Prints License input
     */
@@ -373,7 +372,6 @@ class LBRY_Admin
             $options
         );
     }
-
     
     /**
     * Prints LBC per publish input
