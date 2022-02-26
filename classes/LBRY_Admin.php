@@ -20,6 +20,7 @@ class LBRY_Admin
         add_action('admin_init', array($this, 'wallet_balance_warning'));
         add_action('admin_post_lbry_add_channel', array($this, 'add_channel'));
         add_action('admin_post_lbry_add_supports', array($this, 'add_supports'));
+        add_action('init', array($this, 'lbry_channels_cpt'));
     }
 
     /**
@@ -79,6 +80,43 @@ class LBRY_Admin
           		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
           	}
         }
+    }
+
+    /**
+     * LBRY Channels Custom Post Type
+     */
+    public function lbry_channels_cpt() {
+        $labels = array(
+            'name'               => _x( 'LBRY Channels', 'post type general name' ),
+            'singular_name'      => _x( 'LBRY Channel', 'post type singular name' ),
+            'plural_name'        => _x( 'LBRY Channels', 'post_type_plural_name' ),
+            'menu_name'          => 'LBRY Channels',
+            'add_new'            => 'Add New',
+            'add_new_item'       => 'Add New LBRY Channel',
+            'edit_item'          => 'Edit LBRY Channel',
+            'view_item'          => 'View LBRY Channel',
+            'view_items'         => 'View LBRY Channels',
+            'search_items'       => 'Search LBRY Channels',
+            'not_found'          => 'No LBRY Channels Found',
+            'featured_image'     => 'Channel Thumbnail',
+            'set_featured_image' => 'Set Channel Thumbnail',
+            'remove_featured_image'=> 'Remove Channel Thumbnail',
+            'use_featured_image' => 'Use as Channel Thumbnail',
+            
+            );
+            $args = array(
+            'labels'        => $labels,
+            'description'   => 'Holds our LBRY Channels',
+            'public'        => true,
+            'menu_position' => 5,
+            'capability_type'    => 'post',
+            //'map_meta_cap'       => false,
+            //print_r($GLOBALS['wp_post_types']['lbry_channel']);
+            'taxomomies'    => array( 'category', 'post_tag' ),
+            'supports'      => array( 'title', 'editor', 'thumbnail', 'tag' ),
+            'has_archive'   => false,
+            );
+        register_post_type( 'lbry_channel', $args );
     }
 
     /**

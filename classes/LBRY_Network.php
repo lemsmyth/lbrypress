@@ -39,6 +39,7 @@ class LBRY_Network
 
         // Save the post meta on 'save_post' hook
         add_action( 'wp_insert_post', array( $this, 'save_post_meta' ), 11, 2 );
+        add_action( 'wp_insert_post', array( $this, 'save_channel_meta' ), 11, 2 );
         
        // Checkbox inside the WordPres meta box near "Publish" button
         add_action( 'post_submitbox_misc_actions', array( $this, 'publish_to_lbry_checkbox' ) );
@@ -49,18 +50,36 @@ class LBRY_Network
      */
     public function lbry_meta_boxes( $post )
     {
-        // IDEA: Support post types based on user selection
+        // Meta Box used on the Post 'Publish'
         add_meta_box(
             'lbry-network-publishing',      // Unique ID
             __('LBRY Network', 'lbrypress'),                // Title
             array($this, 'meta_box_html'),  // Callback function
             'post',                         // Screen Options (or post type)
             'side',                         // Context
-            'high',                          // Priority
+            'default',                          // Priority
             array(
                 '__block_editor_compatible_meta_box' => false,
             )
         );
+
+        // Meta Box used on the LBRY Channel CPT
+        add_meta_box(
+            'lbry-channels',      // Unique ID
+            __('LBRY Channel', 'lbrypress'),                // Title
+            array($this, 'lbry_channel_meta'),  // Callback function
+            'lbry_channel',                         // Screen Options (or post type)
+            'side',                         // Context
+            'default',                          // Priority
+            array(
+                '__block_editor_compatible_meta_box' => false,
+            )
+        );
+    }
+
+    public function lbry_channel_meta_box_cb( $post )
+    {
+        
     }
 
     /**
@@ -125,6 +144,27 @@ class LBRY_Network
         if ( ( $will_publish ) && ( $will_publish == true ) && ( $post->post_status == 'publish' ) && ( $pub_channel ) && ( $pub_license ) && ( $pub_license != null ) ) {
             // Publish the post on the LBRY Network
             $this->publisher->publish( $post, $pub_channel, $pub_license );
+        }
+    }
+
+    /**
+     * Handles the saving of meta-data relating to the channel
+     * @param int $post_id      The ID of the post we are saving
+     * @param   WP_Post $post   The Post Object we are saving
+     * @return int              Returns the $post_id if user cannot edit post
+     */
+    public function save_channel_meta( $post_id, $post )
+    {
+        if ( $post->post_type != 'lbry_channel' ) {
+            return $post_id;
+        }
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
+        // Verify the nonce before proceeding.
+        if ( ! isset( $_POST['_lbrynonce'] ) || ! wp_verify_nonce( $_POST['_lbrynonce'], 'lbry_publish_post_nonce' ) ) {
+            //LBRY()->notice->set_notice('error', 'Security check failed' );
+            return $post_id;
         }
     }
 
@@ -206,5 +246,10 @@ class LBRY_Network
     public function meta_box_html( $post )
     {
         require_once( LBRY_ABSPATH . 'templates/meta-box.php' );
+    }
+
+    public function lbry_channel_meta( $post )
+    {
+
     }
 }
