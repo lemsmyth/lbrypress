@@ -20,8 +20,8 @@ class LBRY_Admin
         add_action('admin_init', array($this, 'wallet_balance_warning'));
         add_action('admin_post_lbry_add_channel', array($this, 'add_channel'));
         add_action('admin_post_lbry_add_supports', array($this, 'add_supports'));
-        add_action('init', array($this, 'lbry_channels_cpt'));
         add_action('admin_post_lbry_edit_channel', array($this, 'edit_channel'));
+        add_action('init', array($this, 'lbry_channels_cpt'));
     }
 
     /**
