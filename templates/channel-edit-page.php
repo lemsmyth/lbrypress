@@ -83,7 +83,7 @@ if ( current_user_can( 'manage_options' ) ) {
                                 'lbry_edit_channel_name',
                                 $channel,
                             ); ?>
-                            <p>If you want to edit another channel, use the link for the specific channel claim found on the <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'lbrypress', 'tab' => 'channels' ),'options.php' ) ) ); ?>">Channels tab</a>or to create a complete <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'lbrypress', 'tab' => 'channel-edit' ), 'admin.php' ) ) ); ?>">Channel</a></p>
+                            <p>To edit another channel follow the link on the <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'lbrypress', 'tab' => 'channels' ),'options.php' ) ) ); ?>">Channels tab</a></p><p>Create a new <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'lbrypress', 'tab' => 'channel-edit' ), 'admin.php' ) ) ); ?>">Channel</a></p>
                         </td>
                 </tr>
                 <?php } else { ?>
