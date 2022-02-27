@@ -59,6 +59,13 @@ class LBRYPress
     );
 
     /**
+     * The Languages Available when creating a Channel
+     */
+    public $languages = array(
+        
+    );
+
+    /**
      * Main LBRYPress Instance.
      *
      * Ensures only one instance of LBRYPress is loaded or can be loaded.
