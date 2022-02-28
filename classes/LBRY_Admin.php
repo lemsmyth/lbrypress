@@ -105,7 +105,6 @@ class LBRY_Admin
         $labels = array(
             'name'               => _x( 'LBRY Channels', 'post type general name' ),
             'singular_name'      => _x( 'LBRY Channel', 'post type singular name' ),
-            'plural_name'        => _x( 'LBRY Channels', 'post_type_plural_name' ),
             'menu_name'          => 'LBRY Channels',
             'add_new'            => 'Add New',
             'add_new_item'       => 'Add New LBRY Channel',
